@@ -80,15 +80,21 @@ function encryptedGroups(text) {
 			encrypted = true;
 		}
 	}
+	if (groups) groups += '</span>';
 	return groups;
 }
 
 function activateListeners() {
 	if (!game.user.isGM) return;
 	document.body.addEventListener('click', (event) => {
-		const parent = event.target.parentElement;
-		if (!parent.classList.contains('encryption')) return;
-		parent.classList.toggle('show-decrypted');
+		let parent = event.target.parentElement;
+		if (!parent.classList.contains('encryption')) {
+			parent = parent.parentElement;
+			if (!parent.classList.contains('encryption')) return;
+		}
+		const oldState = parent.dataset.show;
+		const newState = oldState === 'decrypted' ? 'players' : oldState === 'players' ? 'encrypted' : 'decrypted';
+		parent.dataset.show = newState;
 	});
 }
 
@@ -96,9 +102,12 @@ function makeEncryption(text) {
 	const b64 = btoa(text);
 	if (game.user.isGM) {
 		const encryptedText = text.replace(/./g, (letter) => lettersMap[letter] || letter);
-		const element = $(`<a class="encryption gamemaster show-decrypted" data-content="${b64}">
+		const element = $(`<a class="encryption gamemaster" data-show="decrypted" data-content="${b64}">
+                    ■
                     <span class="decrypted">${text}</span>
                     <span class="encrypted">${encryptedText}</span>
+                    <span class="players">${encryptedGroups(text)}</span>
+                    ■
                 </a>`)[0];
 		return element;
 	}
@@ -128,7 +137,6 @@ function processPrimer(item, options) {
 }
 
 function onUserUpdate(_user, changes) {
-	if (game.user.isGM) return;
 	if (!getProperty(changes, 'flags.dnd5e-encryptions')) return;
 	const encriptions = document.querySelectorAll('.encryption');
 	encriptions.forEach((element) => {

@@ -2,9 +2,18 @@
 	color: green;
 }
 
-.show-decrypted .encrypted {
+.encryption.gamemaster > span {
 	display: none;
 }
-.encryption.gamemaster:not(.show-decrypted) .decrypted {
-	display: none;
+
+.encryption.gamemaster[data-show='encrypted'] .encrypted {
+	display: initial;
+}
+
+.encryption.gamemaster[data-show='decrypted'] .decrypted {
+	display: initial;
+}
+
+.encryption.gamemaster[data-show='players'] .players {
+	display: initial;
 }

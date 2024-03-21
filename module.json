@@ -1,50 +1,57 @@
 {
-  "id": "dnd5e-encryptions",
-  "title": "DnD 5e: Encryptions",
-  "authors": [
-    {
-      "name": "Mad Wizard",
-      "discord": "mad.wizard"
-    }
-  ],
-  "esmodules": [
-    "main.js"
-  ],
-  "styles": [
-    "style.css"
-  ],
-  "compatibility": {
-    "minimum": "11",
-    "verified": "11.315"
-  },
-  "relationships": {
-    "systems": [
-      {
-        "id": "dnd5e",
-        "type": "system",
-        "compatibility": {
-          "verified": "3.0.3"
-        }
-      }
-    ]
-  },
-  "packs": [
-    {
-      "name": "primers",
-      "label": "Primers",
-      "path": "packs/primers",
-      "type": "Item",
-      "ownership": {
-        "PLAYER": "OBSERVER",
-        "ASSISTANT": "OWNER"
-      },
-      "system": "dnd5e"
-    }
-  ],
-  "version": "This is auto replaced",
-  "manifest": "This is auto replaced",
-  "download": "This is auto replaced",
-  "url": "This is auto replaced",
-  "readme": "This is auto replaced",
-  "bugs": "This is auto replaced"
+	"id": "dnd5e-encryptions",
+	"title": "DnD 5e: Encryptions",
+	"authors": [
+		{
+			"name": "Mad Wizard",
+			"discord": "mad.wizard"
+		}
+	],
+	"esmodules": ["main.js"],
+	"styles": ["style.css"],
+	"compatibility": {
+		"minimum": "11",
+		"verified": "11.315"
+	},
+	"relationships": {
+		"systems": [
+			{
+				"id": "dnd5e",
+				"type": "system",
+				"compatibility": {
+					"verified": "3.0.3"
+				}
+			}
+		]
+	},
+	"packs": [
+		{
+			"name": "primers",
+			"label": "Primers",
+			"path": "packs/primers",
+			"type": "Item",
+			"ownership": {
+				"PLAYER": "OBSERVER",
+				"ASSISTANT": "OWNER"
+			},
+			"system": "dnd5e"
+		},
+		{
+			"name": "macros",
+			"label": "Macros",
+			"path": "packs/macros",
+			"type": "Macro",
+			"ownership": {
+				"PLAYER": "OBSERVER",
+				"ASSISTANT": "OWNER"
+			},
+			"system": "dnd5e"
+		}
+	],
+	"version": "This is auto replaced",
+	"manifest": "This is auto replaced",
+	"download": "This is auto replaced",
+	"url": "This is auto replaced",
+	"readme": "This is auto replaced",
+	"bugs": "This is auto replaced"
 }
