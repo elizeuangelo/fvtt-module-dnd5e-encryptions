@@ -1,0 +1,44 @@
+name: Release Creation
+
+on:
+    push:
+        # Sequence of patterns matched against refs/tags
+        tags:
+            - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Extract version number from tag
+              id: get_version
+              uses: battila7/get-version-action@v2
+
+            - name: Substitute placeholders in the manifest
+              uses: microsoft/variable-substitution@v1
+              with:
+                  files: 'module.json'
+              env:
+                  version: ${{steps.get_version.outputs.version-without-v}}
+                  url: https://github.com/${{github.repository}}
+                  bugs: https://github.com/${{github.repository}}/issues
+                  license: https://raw.githubusercontent.com/${{github.repository}}/${{steps.get_version.outputs.version}}/LICENSE
+                  readme: https://raw.githubusercontent.com/${{github.repository}}/${{steps.get_version.outputs.version}}/README.md
+                  manifest: https://github.com/${{github.repository}}/releases/latest/download/module.json
+                  download: https://github.com/${{github.repository}}/releases/download/${{steps.get_version.outputs.version}}/module.zip
+
+            - name: Create module.zip
+              run: zip -r module * -x ".github/*" "assets/*" "*.md" "*.ts" "tsconfig.json"
+
+            - name: Update Release with Files
+              uses: ncipollo/release-action@v1
+              with:
+                  tag: ${{ steps.get_version.outputs.VERSION }}
+                  name: Release ${{ steps.get_version.outputs.VERSION }}
+                  draft: false
+                  prerelease: false
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  artifacts: './module.json,./module.zip'
+                  allowUpdates: true

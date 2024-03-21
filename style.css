@@ -1,0 +1,10 @@
+.encryption .decrypted {
+	color: green;
+}
+
+.show-decrypted .encrypted {
+	display: none;
+}
+.encryption.gamemaster:not(.show-decrypted) .decrypted {
+	display: none;
+}
