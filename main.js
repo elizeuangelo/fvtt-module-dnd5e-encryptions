@@ -93,7 +93,7 @@ function activateListeners() {
 			if (!parent.classList.contains('encryption')) return;
 		}
 		const oldState = parent.dataset.show;
-		const newState = oldState === 'decrypted' ? 'players' : oldState === 'players' ? 'encrypted' : 'decrypted';
+		const newState = oldState === 'players' ? 'encrypted' : 'players';
 		parent.dataset.show = newState;
 	});
 }
@@ -102,9 +102,8 @@ function makeEncryption(text) {
 	const b64 = btoa(text);
 	if (game.user.isGM) {
 		const encryptedText = text.replace(/./g, (letter) => lettersMap[letter] || letter);
-		const element = $(`<a class="encryption gamemaster" data-show="decrypted" data-content="${b64}">
+		const element = $(`<a class="encryption gamemaster" data-show="players" data-content="${b64}">
                     ■
-                    <span class="decrypted">${text}</span>
                     <span class="encrypted">${encryptedText}</span>
                     <span class="players">${encryptedGroups(text)}</span>
                     ■
